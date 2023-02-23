@@ -78,3 +78,22 @@ input.checked::before {
     top: 18%;
     left: 34%;
 }
+
+::-webkit-scrollbar {
+    width: 5px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #e9e6df; 
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #79746c; 
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #504940; 
+  }
