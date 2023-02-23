@@ -24,7 +24,7 @@ export default function Suit() {
     const products =  [
         {img:'/three-piece.webp', title:'Three Piece'},
         {img:'/two-piece.webp', title:'Two Piece'},
-        {img: '/jacket.webp', title:'Jacket'}, 
+        {img: '/safari.webp', title:'Jacket'}, 
         {img:'/trousers.webp', title:'Trousers'},
     ]
     return (
