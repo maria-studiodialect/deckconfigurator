@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import { Inter } from '@next/font/google'
-import Button from '@/components/Button'
+import ButtonLarger from '@/components/ButtonLarger'
 import Header from '@/components/Header'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -24,7 +24,7 @@ export default function Home() {
           </div>
           <div className='flex flex-col md:flex-row justify-between md:items-end h-1/3 md:mr-14'>
             <div className='md:self-end ml-24 text-sm md:text-xs md:ml-32 md:w-1/5 mb-1'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ullamcorper bibendum dui ullamcorper.</div>
-            <Button href='/base-info' mainColour='text-beige' text='Start designing' icon='white'/>
+            <ButtonLarger href='/base-info' mainColour='text-beige' text='Start designing' icon='white'/>
           </div>
         </div>
       </div>
