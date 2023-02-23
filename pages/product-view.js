@@ -7,6 +7,7 @@ import YourDetails from '@/components/YourDetails'
 import RefineProportions from '@/components/RefineProportions'
 import Link from 'next/link'
 import ChosenProduct from '@/components/ChosenProduct'
+import FabricSelection from '@/components/FabricSelection'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -14,7 +15,7 @@ export default function ProductView() {
     return (
         <>
         <Head>
-            <title>Create Next App</title>
+            <title>The Deck Configurator</title>
             <meta name="description" content="The Deck Configurator" />
             <meta name="viewport" content="width=device-width, initial-scale=1" />
             <link rel="icon" href="/favicon.ico" />
@@ -31,7 +32,7 @@ export default function ProductView() {
                 <path d="M50 18.5L0 18.5" stroke="#2F2727" stroke-width="2" stroke-miterlimit="10"/>
             </svg>
             </Link>
-            <Button href='/product-view' mainColour='text-charcoal' text='Next step' icon='#2F2727' />
+            <Button href='/fabric-selection' mainColour='text-charcoal' text='Next step' icon='#2F2727' />
         </div>
         </>
     )
