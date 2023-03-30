@@ -21,14 +21,54 @@ export default function BaseInfo() {
   const [width, setWidth] = useState()
 
   const skin = [
-    { value: null, label: 'Test 1' },
-    { value: 'To Let', label: 'Test 2' },
-    { value: 'For Sale', label: 'Test 3' },
+    { value: '1', label: 'Very Light', color: '#f1e4d7' },
+    { value: '2', label: 'Light', color: '#f1dcb8' },
+    { value: '3', label: 'Light Medium', color: '#e2b58f' },
+    { value: '4', label: 'Medium', color: '#c9975c' },
+    { value: '5', label: 'Medium Dark', color: '#a06b3f' },
+    { value: '6', label: 'Dark', color: '#7f3e2e' },
+    { value: '7', label: 'Very Dark', color: '#5d2518' },
+    { value: '8', label: 'Deep', color: '#3c1212' },
   ]
 
   useEffect(() => {
     setWidth(window.innerWidth);
   })
+
+  const [height, setHeight] = useState('');
+  const [weight, setWeight] = useState('');
+  const [heightUnit, setHeightUnit] = useState('cm');
+  const [weightUnit, setWeightUnit] = useState('kg');
+
+  const convertWeightUnits = (value, prevUnit, newUnit) => {
+    if (prevUnit === newUnit) return value;
+
+    const conversionFactors = {
+      'kg': { 'lb': 2.20462, 'st': 0.157473 },
+      'lb': { 'kg': 0.453592, 'st': 0.071429 },
+      'st': { 'kg': 6.35029, 'lb': 14 },
+    };
+
+    return (parseFloat(value) * conversionFactors[prevUnit][newUnit]).toFixed(2);
+  };
+
+  const convertHeightUnits = (value, prevUnit, newUnit) => {
+    if (prevUnit === newUnit) return value;
+    const conversionFactor = prevUnit === 'cm' ? 0.393701 : 2.54;
+    return (parseFloat(value) * conversionFactor).toFixed(2);
+  };
+
+  const handleHeightUnitChange = (e) => {
+    const newUnit = e.target.value;
+    setHeight(convertHeightUnits(height, heightUnit, newUnit));
+    setHeightUnit(newUnit);
+  };
+
+  const handleWeightUnitChange = (e) => {
+    const newUnit = e.target.value;
+    setWeight(convertWeightUnits(weight, weightUnit, newUnit));
+    setWeightUnit(newUnit);
+  };
   
   return (
     <>
@@ -57,14 +97,54 @@ export default function BaseInfo() {
               <label for="last">AGE</label><br/>
               <input type="text" id="last" name="last" className='bg-transparent border-b border-charcoal mt-3 text-sm pb-2 w-full'/>
             </div>
-            <div>
-              <label for="last">HEIGHT</label><br/>
-              <input type="text" id="last" name="last" className='bg-transparent border-b border-charcoal mt-3 text-sm pb-2 w-full'/>
-            </div>
-            <div>
-              <label for="last">WEIGHT</label><br/>
-              <input type="text" id="last" name="last" className='bg-transparent border-b border-charcoal mt-3 text-sm pb-2 w-full'/>
-            </div>
+              <div>
+                <label htmlFor="height">HEIGHT</label><br />
+                <div className="flex">
+                  <input
+                    type="text"
+                    id="height"
+                    name="height"
+                    value={height}
+                    onChange={(e) => setHeight(e.target.value)}
+                    className='bg-transparent border-b border-charcoal mt-3 text-sm pb-1 mr-3 flex-1 pt-1'
+                  />
+                  <select
+                    id="heightUnits"
+                    name="heightUnits"
+                    value={heightUnit}
+                    onChange={handleHeightUnitChange}
+                    className='bg-transparent border-b border-charcoal mt-3 text-sm pb-1 pt-1'
+                  >
+                    <option value="cm">cm</option>
+                    <option value="in">inches</option>
+                  </select>
+                </div>
+              </div>
+              <div>
+                <label htmlFor="weight">WEIGHT</label><br />
+                <div className="flex">
+                  <input
+                    type="text"
+                    id="weight"
+                    name="weight"
+                    value={weight}
+                    onChange={(e) => setWeight(e.target.value)}
+                    className='bg-transparent border-b border-charcoal mt-3 text-sm pb-1 mr-3 flex-1 pt-1'
+                  />
+                  <select
+                    id="weightUnits"
+                    name="weightUnits"
+                    value={weightUnit}
+                    onChange={handleWeightUnitChange}
+                    className='bg-transparent border-b border-charcoal mt-3 text-sm pb-1 pt-1'
+                  >
+                    <option value="kg">kg</option>
+                    <option value="lb">lb</option>
+                    <option value="st">st</option>
+                  </select>
+                </div>
+              </div>
+
             </div>
             <CustomSelect opt={skin} ph='SKIN TONE (OPTIONAL)'/>
             {/*<button type="submit">Submit</button>*/}
