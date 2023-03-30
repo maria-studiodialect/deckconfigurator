@@ -59,7 +59,7 @@ const CustomSelect = ({ opt, ph, change }) => (
     options={opt}
     placeholder={ph}
     styles={customStyles}
-    className='mt-10'
+    className='mt-10 w-full'
     components={{
       Option: CustomOption,
       SingleValue: CustomSingleValue, 
