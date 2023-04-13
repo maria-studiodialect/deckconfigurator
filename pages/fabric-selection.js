@@ -1,17 +1,83 @@
 import Head from 'next/head'
-import Image from 'next/image'
-import { Inter } from '@next/font/google'
 import Button from '@/components/Button'
 import Header from '@/components/Header'
-import YourDetails from '@/components/YourDetails'
-import RefineProportions from '@/components/RefineProportions'
 import Link from 'next/link'
-import ChosenProduct from '@/components/ChosenProduct'
 import FabricSelection from '@/components/FabricSelection'
+import { useEffect, useState } from 'react'
 
-const inter = Inter({ subsets: ['latin'] })
 
-export default function ProductView() {
+export default function FabricSelect() {
+    const [jacketFabrics, setJacketFabrics] = useState([])
+    const [trouserFabrics, setTrouserFabrics] = useState([])
+    const [waistcoatFabrics, setWaistcoatFabrics] = useState([])
+    const [selected, setSelected] = useState(0)
+    const [chosenSet, setChosenSet] = useState(0)
+
+    useEffect(() => {
+        const set =  JSON.parse(sessionStorage.getItem("chosenSet"));
+        setChosenSet(parseInt(set))
+        const storedSizes = JSON.parse(sessionStorage.getItem("sizes"));
+        //
+          const jacket = JSON.parse(sessionStorage.getItem('jacket'))
+        //}
+        const trouser = JSON.parse(sessionStorage.getItem('trousers'))
+        const fetchData = async () => {
+          try {
+            const jacketList = await fetch(
+              `https://lunar-kindhearted-bun.glitch.me/getfabrics?title=${storedSizes.jacketSize}`
+            );
+            const jacketData = await jacketList.json();
+
+            if ([0, 1, 2].includes(chosenSet)) {
+
+            const jackets = jacketData.productVariants.edges
+              .filter((edge) => edge.node.title.includes(jacket.title.toUpperCase()))
+              .map((edge) => ({
+                img: edge.node.image?.url,
+                title: edge.node.product?.title,
+                price: edge.node.price,
+                id: edge.node.id
+              }));
+              setJacketFabrics(jackets);
+
+            }
+
+              const trouserList = await fetch(
+                `https://lunar-kindhearted-bun.glitch.me/getfabrics?title=${storedSizes.trouserSize}`
+              );
+              const trouserData = await trouserList.json();
+
+              if ([0, 1, 3].includes(chosenSet)) {
+                const trousers = trouserData.productVariants.edges
+                  .filter((edge) =>  edge.node.title.includes(trouser.title.toUpperCase()))
+                  .map((edge) => ({
+                    img: edge.node.image?.url,
+                    title: edge.node.product?.title,
+                    price: edge.node.price,
+                    id: edge.node.id
+                  }));
+                  setTrouserFabrics(trousers);
+              }
+
+                const waistcoat = jacketData.productVariants.edges
+                .filter((edge) => edge.node.title.includes("WAISTCOAT"))
+                .map((edge) => ({
+                  img: edge.node.image?.url,
+                  title: edge.node.product?.title,
+                  price: edge.node.price,
+                  id: edge.node.id
+                }));
+        
+            
+            setWaistcoatFabrics(waistcoat);
+            
+          } catch (error) {
+            console.error(error);
+          } 
+        };
+        fetchData();
+      }, []);
+
     return (
         <>
         <Head>
@@ -22,7 +88,20 @@ export default function ProductView() {
         </Head>
         <Header fill='#2F2727'/>
         <div className="h-screen w-screen bg-gray-200 flex justify-end items-center p-7">
-            <FabricSelection/>
+            <div className='w-2/5'>
+            {[0, 1].includes(chosenSet) &&
+              <div className="bg-beige rounded-t-xl shadow-xl border-b border-charcoal grid grid-cols-2 text-center">
+                {[0, 1, 2].includes(chosenSet) && <div className={`px-9 py-2 rounded-tl-xl cursor-pointer ${selected === 0 ? 'bg-charcoal text-beige': 'hover:opacity-50'}`} onClick={() => setSelected(0)}>Jacket</div>}
+                {[0, 1, 3].includes(chosenSet) && (<div className={`py-2 rounded-tr-xl cursor-pointer ${selected === 1 ? 'bg-charcoal text-beige': 'hover:opacity-50'}`} onClick={() => setSelected(1)}>Trousers</div>)}
+              </div>
+            }
+            {[0, 1, 2].includes(chosenSet) && selected === 0 &&
+            <FabricSelection productData={jacketFabrics} productType='JacketFabric'/>
+            }
+            {[0, 1, 3].includes(chosenSet) && selected === 1 &&
+            <FabricSelection productData={trouserFabrics} productType='TrouserFabric'/>
+            }
+            </div>
         </div>
         <div className='flex justify-between items-center mr-14 absolute bottom-7 w-full px-7'>
             <Link href='/product-view'>
@@ -32,7 +111,7 @@ export default function ProductView() {
                 <path d="M50 18.5L0 18.5" stroke="#2F2727" stroke-width="2" stroke-miterlimit="10"/>
             </svg>
             </Link>
-            <Button href='/fabric-selection' mainColour='text-charcoal' text='Next step' icon='#2F2727' />
+            <Button href='/checkout' mainColour='text-charcoal' text='Next step' icon='#2F2727' />
         </div>
         </>
     )

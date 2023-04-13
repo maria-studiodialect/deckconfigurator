@@ -1,8 +1,7 @@
 import Link from "next/link"
 import Image from "next/image"
 import ButtonNoLink from "./ButtonNoLink"
-import { useEffect, useState } from "react"
-
+import { useEffect, useState } from "react";
 
 function getTextByNumber(number) {
     switch(number) {
@@ -19,19 +18,24 @@ function getTextByNumber(number) {
     }
 }
 
-
-const ChosenProduct = () => {
+const FinalProduct = () => {
     const [chosenSet, setChosenSet] = useState()
     const [chosenJacket, setChosenJacket] = useState(null)
     const [chosenTrousers, setChosenTrousers] = useState(null)
     const [chosenWaistcoat, setChosenWaistcoat] = useState(null)
     const [price, setPrice] = useState()
+    const [jacketFabric, setJacketFabric] = useState(null);
+    const [trouserFabric, setTrouserFabric] = useState(null);
+    const [isHidden, setIsHidden] = useState(false)
 
     useEffect(() => {
         const set = sessionStorage.getItem('chosenSet');
         const jacket = JSON.parse(sessionStorage.getItem('jacket'));
         const trouser = JSON.parse(sessionStorage.getItem('trousers'));
         const waistcoat = JSON.parse(sessionStorage.getItem('waistcoat'));
+        const storedJacketFabric = JSON.parse(sessionStorage.getItem('selectedJacketFabric'));
+        const storedTrouserFabric = JSON.parse(sessionStorage.getItem('selectedTrouserFabric'));
+
         if (set !== null) {
             setChosenSet(parseInt(set));
         }
@@ -44,19 +48,30 @@ const ChosenProduct = () => {
         if (waistcoat !== null) {
             setChosenWaistcoat(waistcoat);
         }
+        if (storedJacketFabric !== null) {
+          setJacketFabric(storedJacketFabric);
+        }
+        if (storedTrouserFabric !== null) {
+            setTrouserFabric(storedTrouserFabric);
+        }
 
         const totalPrice = (jacket ? parseInt(jacket.price) : 0) +
                            (trouser ? parseInt(trouser.price) : 0) +
-                           (waistcoat ? parseInt(waistcoat.price) : 0);
+                           // (waistcoat ? parseInt(waistcoat.price) : 0) +
+                           (jacketFabric ? parseInt(jacketFabric.price) : 0) +
+                           (trouserFabric ? parseInt(trouserFabric.price) : 0);
         setPrice(totalPrice);
     }, [])
 
+
+
     return (
-        <div className="bg-beige rounded-xl w-1/4 shadow-xl">
+        <div className="flex items-center">
+        <div className={`bg-beige rounded-xl w-1/4 shadow-xl transition transition-all ${isHidden ? 'ml-[-27%]': ''}`}>
             <div className="px-9 pt-9">
             <div>{getTextByNumber(chosenSet)}</div>
             <div className="text-end text-sm font-bold">£{price}</div>
-            <div className="mt-7 border-t  border-charcoal/25 py-7 text-xs h-[20vh] overflow-y-scroll pr-4">
+            <div className="mt-7 border-t  border-charcoal/25 py-7 text-xs h-[35vh] overflow-y-scroll pr-4">
                 {[0,1,2].includes(chosenSet) &&
                 <>
                     <div className="mb-3 uppercase">{chosenJacket.title}</div>
@@ -77,10 +92,17 @@ const ChosenProduct = () => {
                 }
             </div>
             </div>
-            <button className="border-t border-charcoal p-3 text-center text-sm w-full flex items-center hover:opacity-50"><Image src='/change.svg' width={25} height={25}/><span className="w-full">CHANGE POSE</span></button>
-            <button className="border-t border-charcoal p-3 text-center text-sm w-full flex items-center hover:opacity-50"><Image src='/camera.svg' width={25} height={25}/><span className="w-full">SAVE SNAPSHOT</span></button>
-            <Link href='/fabric-selection'><button className="p-3 text-center text-sm w-full rounded-b-xl bg-charcoal flex items-center text-beige hover:opacity-50"><Image src='/fabric.svg' width={25} height={25}/><span className="w-full">CHOOSE FABRIC</span></button></Link>
+         </div>
+         <div className="bg-charcoal h-fit px-1.5 py-8 rounded-r-lg" onClick={() =>  setIsHidden(!isHidden)}>
+            <div className={isHidden ? "rotate-90" : "-rotate-90"}>
+                <svg width="24" height="12" viewBox="0 0 32 16" fill="none" xmlns="http://www.w3.org/2000/svg" >
+                <path d="M1 15C1 15 16 12.5543 16 2.10592e-06" stroke="#F7F4EE" stroke-miterlimit="10"/>
+                <path d="M31 15C31 15 16 12.5543 16 1.38905e-07" stroke="#F7F4EE" stroke-miterlimit="10"/>
+                </svg>
+            </div>
         </div>
+         </div>
+
     )
 }
-export default ChosenProduct
+export default FinalProduct

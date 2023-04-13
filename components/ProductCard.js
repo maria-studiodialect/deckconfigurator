@@ -2,7 +2,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { useState } from "react";
 
-const ProductCard = ({ index, img, title, isChecked, handleCardClick, cardOpacity }) => {
+const ProductCard = ({ index, img, title, isChecked, handleCardClick, cardOpacity, price }) => {
     const [opacity, setOpacity] = useState(cardOpacity);
 
     const handleClick = () => {
@@ -18,6 +18,9 @@ const ProductCard = ({ index, img, title, isChecked, handleCardClick, cardOpacit
             <div className="absolute bottom-2 left-3"><input type="checkbox" className={`appearance-none w-9 h-9 rounded-full bg-white border cursor-pointer ${isChecked ? 'checked' : ''}`} checked={isChecked} onChange={handleClick} /></div>
             </div>
             <div className="uppercase text-xs mt-4">{title}</div>
+            {price &&
+            <div className="uppercase text-xs mt-4">Base Price £{price}</div>
+            }
         </div>
     )
 }

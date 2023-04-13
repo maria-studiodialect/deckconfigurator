@@ -1,66 +1,51 @@
 import Link from "next/link"
 import Image from "next/image"
 import CustomSelect from "./CustomSelect"
+import { useState, useEffect } from "react"
+import FabricCard from "./FabricCard"
 
-const FabricSelection = ({text, mainColour, href, icon}) => {
-    const skin = [
+const FabricSelection = ({productData, productType}) => {
+    const test = [
         { value: null, label: 'Test 1' },
         { value: 'To Let', label: 'Test 2' },
         { value: 'For Sale', label: 'Test 3' },
       ]
+      
+      const [checkedIndex, setCheckedIndex] = useState(-1);
+
+      const handleCardClick = (index) => {
+        if (index === checkedIndex) {
+            setCheckedIndex(-1);
+            sessionStorage.removeItem(`selected${productType}`);
+        } else {
+            setCheckedIndex(index);
+            sessionStorage.setItem(`selected${productType}`, JSON.stringify(productData[index]));
+        }
+    };
+    console.log(productType)
     return (
-        <div className="bg-beige rounded-xl w-2/5 shadow-xl">
+        <div className="bg-beige rounded-b-xl shadow-xl">
             <div className="px-9 pt-9">
             <div className="flex justify-between">
                 <div className="uppercase">Outer Fabric</div>
                 <Image src='/arrow-drawer.svg' width={25} height={25} className='rotate-180'/>
             </div>
             <div className="flex justify-between space-x-4">
-            <CustomSelect opt={skin} ph='MATERIAL'/>
-            <CustomSelect opt={skin} ph='COLOUR'/>
-            <CustomSelect opt={skin} ph='PRICE'/>
+            <CustomSelect opt={test} ph='MATERIAL'/>
+            <CustomSelect opt={test} ph='COLOUR'/>
+            <CustomSelect opt={test} ph='PRICE'/>
             </div>
             <div className="mt-7 border-t  border-charcoal/25 py-7 text-xs h-[20vh] overflow-y-scroll pr-4 grid grid-cols-3 gap-4">
-                <div>
-                    <div className="bg-gray-200 h-20 w-full"></div>
-                    <div className="uppercase mt-2">Fabric Name</div>
-                    <div className="uppercase mt-1 text-[0.6rem]">Detail</div>
-                </div>
-                <div>
-                    <div className="bg-gray-200 h-20 w-full"></div>
-                    <div className="uppercase mt-2">Fabric Name</div>
-                    <div className="uppercase mt-1 text-[0.6rem]">Detail</div>
-                </div>
-                <div>
-                    <div className="bg-gray-200 h-20 w-full"></div>
-                    <div className="uppercase mt-2">Fabric Name</div>
-                    <div className="uppercase mt-1 text-[0.6rem]">Detail</div>
-                </div>
-                <div>
-                    <div className="bg-gray-200 h-20 w-full"></div>
-                    <div className="uppercase mt-2">Fabric Name</div>
-                    <div className="uppercase mt-1 text-[0.6rem]">Detail</div>
-                </div>
-                <div>
-                    <div className="bg-gray-200 h-20 w-full"></div>
-                    <div className="uppercase mt-2">Fabric Name</div>
-                    <div className="uppercase mt-1 text-[0.6rem]">Detail</div>
-                </div>
-                <div>
-                    <div className="bg-gray-200 h-20 w-full"></div>
-                    <div className="uppercase mt-2">Fabric Name</div>
-                    <div className="uppercase mt-1 text-[0.6rem]">Detail</div>
-                </div>
-                <div>
-                    <div className="bg-gray-200 h-20 w-full"></div>
-                    <div className="uppercase mt-2">Fabric Name</div>
-                    <div className="uppercase mt-1 text-[0.6rem]">Detail</div>
-                </div>
-                <div>
-                    <div className="bg-gray-200 h-20 w-full"></div>
-                    <div className="uppercase mt-2">Fabric Name</div>
-                    <div className="uppercase mt-1 text-[0.6rem]">Detail</div>
-                </div>
+                {productData.map((product, index) => (
+                        <FabricCard
+                        key={index}
+                        img={product.img}
+                        price={product.price}
+                        title={product.title}
+                        isChecked={index === checkedIndex}
+                        onCheck={() => handleCardClick(index)}
+                        />
+                    ))}
                 
             </div>
             </div>

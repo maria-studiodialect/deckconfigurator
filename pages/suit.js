@@ -1,18 +1,15 @@
 import Head from 'next/head'
-import Image from 'next/image'
-import { Inter } from '@next/font/google'
 import Button from '@/components/Button'
 import Header from '@/components/Header'
-import YourDetails from '@/components/YourDetails'
-import RefineProportions from '@/components/RefineProportions'
 import Link from 'next/link'
-import YourMeasurements from '@/components/YourMeasurements'
 import ProductCard from '@/components/ProductCard'
 import { useState } from 'react'
+import ButtonNoLink from '@/components/ButtonNoLink'
+import { useRouter } from 'next/router'
 
-const inter = Inter({ subsets: ['latin'] })
 
 export default function Suit() {
+    const router = useRouter();
     const [selected, setSelected] = useState(null);
     const [opacity, setOpacity] = useState([1, 1, 1, 1]);
         
@@ -27,6 +24,12 @@ export default function Suit() {
         {img: '/safari.webp', title:'Jacket'}, 
         {img:'/trousers.webp', title:'Trousers'},
     ]
+
+    const handleClick = () => {
+        sessionStorage.setItem("chosenSet", selected);
+        router.push('/silhouette');
+    };
+      
     return (
         <>
         <Head>
@@ -61,7 +64,7 @@ export default function Suit() {
                 <path d="M50 18.5L0 18.5" stroke="#2F2727" stroke-width="2" stroke-miterlimit="10"/>
             </svg>
             </Link>
-            <Button href='/silhouette' mainColour='text-charcoal' text='Next step' icon='#2F2727' />
+            <ButtonNoLink onClick={handleClick} mainColour='text-charcoal' text='Next step' icon='#2F2727'/>
         </div>
         </>
     )

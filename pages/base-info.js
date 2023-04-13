@@ -6,6 +6,8 @@ import CustomSelect from '@/components/CustomSelect'
 import Link from 'next/link'
 import Header from '@/components/Header'
 import { useEffect, useState } from 'react'
+import { useRouter } from 'next/router';
+import { motion } from 'framer-motion'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -17,7 +19,7 @@ const COLORS = [
 ];
 
 export default function BaseInfo() {
-
+  const router = useRouter();
   const [width, setWidth] = useState()
 
   const skin = [
@@ -35,6 +37,9 @@ export default function BaseInfo() {
     setWidth(window.innerWidth);
   })
 
+  const [name, setName] = useState('');
+  const [skinTone, setSkinTone] = useState('');
+  const [age, setAge] = useState('');
   const [height, setHeight] = useState('');
   const [weight, setWeight] = useState('');
   const [heightUnit, setHeightUnit] = useState('cm');
@@ -42,21 +47,22 @@ export default function BaseInfo() {
 
   const convertWeightUnits = (value, prevUnit, newUnit) => {
     if (prevUnit === newUnit) return value;
-
+  
     const conversionFactors = {
       'kg': { 'lb': 2.20462, 'st': 0.157473 },
       'lb': { 'kg': 0.453592, 'st': 0.071429 },
       'st': { 'kg': 6.35029, 'lb': 14 },
     };
-
+  
     return (parseFloat(value) * conversionFactors[prevUnit][newUnit]).toFixed(2);
   };
-
+  
   const convertHeightUnits = (value, prevUnit, newUnit) => {
     if (prevUnit === newUnit) return value;
     const conversionFactor = prevUnit === 'cm' ? 0.393701 : 2.54;
     return (parseFloat(value) * conversionFactor).toFixed(2);
   };
+  
 
   const handleHeightUnitChange = (e) => {
     const newUnit = e.target.value;
@@ -69,7 +75,30 @@ export default function BaseInfo() {
     setWeight(convertWeightUnits(weight, weightUnit, newUnit));
     setWeightUnit(newUnit);
   };
-  
+
+  const handleColorChange = (selectedOption) => {
+    setSkinTone(selectedOption.color);
+  };
+const handleSubmit = (e) => {
+  e.preventDefault();
+  if (!height || !weight) {
+    alert('Please fill in the required fields: height and weight');
+    return;
+  }
+  const submittedData = {
+    name, 
+    age,
+    skinTone,
+    height,
+    weight,
+    heightUnit,
+    weightUnit,
+  };
+
+  sessionStorage.setItem('formData', JSON.stringify(submittedData));
+  router.push('/details');
+};
+
   return (
     <>
       <Head>
@@ -79,7 +108,7 @@ export default function BaseInfo() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header fill={ width < 1024 ? '#2F2727' : 'white'}/>
-      <div className='lg:grid grid-cols-2 bg-beige min-h-screen'>
+      <div className='grid grid-cols-2 bg-beige min-h-screen'>
         <div className='relative w-[50vw] h-screen z-0 hidden lg:block'>
         <Image src='/bg-img.webp' fill className='object-cover' />
         </div>
@@ -88,14 +117,14 @@ export default function BaseInfo() {
           <div className='mb-3'>ENTER YOUR BASE INFORMATION</div>
           <div className='text-sm'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ullamcorper bibendum dui, nec condimentum quam dignissim in.</div>
           <form action="/send-data-here" method="post">
-            <div className='grid grid-cols-2 mt-10 gap-8'>
+            <div className='grid md:grid-cols-2 mt-10 gap-8'>
             <div>
-              <label for="first">NAME</label><br/>
-              <input type="text" id="first" name="first" className='bg-transparent border-b border-charcoal mt-3 text-sm pb-2 w-full'/>
+              <label htmlFor="first">NAME</label><br/>
+              <input onChange={(e) => setName(e.target.value)} type="text" id="first" name="first" className='bg-transparent border-b border-charcoal mt-3 text-sm pb-2 w-full'/>
             </div>
             <div>
-              <label for="last">AGE</label><br/>
-              <input type="text" id="last" name="last" className='bg-transparent border-b border-charcoal mt-3 text-sm pb-2 w-full'/>
+              <label htmlFor="last">AGE</label><br/>
+              <input onChange={(e) => setAge(e.target.value)} type="text" id="last" name="last" className='bg-transparent border-b border-charcoal mt-3 text-sm pb-2 w-full'/>
             </div>
               <div>
                 <label htmlFor="height">HEIGHT</label><br />
@@ -146,13 +175,13 @@ export default function BaseInfo() {
               </div>
 
             </div>
-            <CustomSelect opt={skin} ph='SKIN TONE (OPTIONAL)'/>
+            <CustomSelect opt={skin} ph='SKIN TONE (OPTIONAL)' change={handleColorChange}/>
             {/*<button type="submit">Submit</button>*/}
           </form>
         </div>
       </div>
       </div>
-      <div className='flex justify-between items-center mr-14 absolute bottom-7 w-full px-7'>
+      <div className='flex justify-between items-center mr-14 fixed bottom-0 pb-7 w-full px-7 bg-charcoal md:bg-transparent '>
         <Link href='/'>
         <svg width="50" height="37" viewBox="0 0 50 37" fill="none" xmlns="http://www.w3.org/2000/svg" className="ml-4 w-7 rotate-180">
             <path d="M31.25 0.5C31.25 0.5 34.3071 18.5 50 18.5" stroke="white" stroke-width="2" stroke-miterlimit="10"/>
@@ -160,7 +189,14 @@ export default function BaseInfo() {
             <path d="M50 18.5L0 18.5" stroke="white" stroke-width="2" stroke-miterlimit="10"/>
         </svg>
         </Link>
-        <Button href='/details' mainColour='text-charcoal' text='Start designing' icon='#2F2727' />
+        <div onClick={handleSubmit} className={`cursor-pointer text-beige md:text-charcoal px-3 py-2 xxl:px-8 xxl:py-6 flex items-center font-editorial text-2xl`}>
+                Start designing
+                <svg width="50" height="37" viewBox="0 0 50 37" fill="none" xmlns="http://www.w3.org/2000/svg" className="ml-3 w-7">
+                    <path d="M31.25 0.5C31.25 0.5 34.3071 18.5 50 18.5" stroke='#2F2727' stroke-width="2" stroke-miterlimit="10"/>
+                    <path d="M31.25 36.5C31.25 36.5 34.3071 18.5 50 18.5" stroke='#2F2727' stroke-width="2" stroke-miterlimit="10"/>
+                    <path d="M50 18.5L0 18.5" stroke='#2F2727' stroke-width="2" stroke-miterlimit="10"/>
+                </svg>
+            </div>
       </div>
     </>
   )
