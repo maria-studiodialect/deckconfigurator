@@ -1,10 +1,10 @@
 import Link from "next/link"
 import { useEffect, useState } from 'react';
 
-const YourMeasurements = ({text, mainColour, href, icon}) => {
+const YourMeasurements = () => {
     const [formData, setFormData] = useState({});
     const [isEditing, setIsEditing] = useState(false);
-    const [measurements, setMeasurements] = useState({});
+    const [measurements, setMeasurements] = useState(null);
 
     useEffect(() => {
       const getFormData = () => {
@@ -75,8 +75,18 @@ const YourMeasurements = ({text, mainColour, href, icon}) => {
         return formattedMeasurements;
       };
 
+            
+      useEffect(() => {
+        if (formData.height && formData.weight) {
+          const calculatedMeasurements = calculateMeasurements();
+          setMeasurements(calculatedMeasurements);
+          sessionStorage.setItem("measurements", JSON.stringify(calculatedMeasurements));
+        }
+      }, [formData]);
       
 
+      console.log(measurements)
+      
       useEffect(() => {
         const calculatedMeasurements = calculateMeasurements();
       
@@ -96,7 +106,7 @@ const YourMeasurements = ({text, mainColour, href, icon}) => {
       
         const storedMeasurements = getStoredMeasurements();
       
-        if (JSON.stringify(storedMeasurements) !== JSON.stringify(measurements)) {
+        if (storedMeasurements) {
           setMeasurements(storedMeasurements);
         }
       }, []);
@@ -124,6 +134,9 @@ const YourMeasurements = ({text, mainColour, href, icon}) => {
     return (
         <div className="bg-beige rounded-xl p-9 w-1/4 shadow-xl">
             <div className="uppercase">YOUR MeasurementS</div>
+
+            {measurements &&
+            <>
             <div className="grid grid-cols-[0.7fr_0.3fr] gap-3 mt-5 border-y py-5 text-sm">
               <div>SHOULDER WIDTH</div>
                 {isEditing ? (
@@ -265,6 +278,8 @@ const YourMeasurements = ({text, mainColour, href, icon}) => {
                 )}
 
             </div>
+            </>
+            }
            <button
               className="border border-charcoal p-3 text-center text-sm w-full uppercase hover:bg-charcoal hover:text-beige"
               onClick={toggleEditMode}

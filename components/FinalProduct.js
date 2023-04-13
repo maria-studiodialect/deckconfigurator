@@ -28,6 +28,7 @@ const FinalProduct = () => {
     const [trouserFabric, setTrouserFabric] = useState(null);
     const [isHidden, setIsHidden] = useState(false)
 
+
     useEffect(() => {
         const set = sessionStorage.getItem('chosenSet');
         const jacket = JSON.parse(sessionStorage.getItem('jacket'));
@@ -35,6 +36,8 @@ const FinalProduct = () => {
         const waistcoat = JSON.parse(sessionStorage.getItem('waistcoat'));
         const storedJacketFabric = JSON.parse(sessionStorage.getItem('selectedJacketFabric'));
         const storedTrouserFabric = JSON.parse(sessionStorage.getItem('selectedTrouserFabric'));
+
+
 
         if (set !== null) {
             setChosenSet(parseInt(set));
@@ -55,11 +58,13 @@ const FinalProduct = () => {
             setTrouserFabric(storedTrouserFabric);
         }
 
+
         const totalPrice = (jacket ? parseInt(jacket.price) : 0) +
                            (trouser ? parseInt(trouser.price) : 0) +
-                           // (waistcoat ? parseInt(waistcoat.price) : 0) +
-                           (jacketFabric ? parseInt(jacketFabric.price) : 0) +
-                           (trouserFabric ? parseInt(trouserFabric.price) : 0);
+                           (waistcoat ? parseInt(waistcoat.price) : 0) +
+                           (storedJacketFabric ? parseInt(storedJacketFabric.price) : 0) +
+                           (storedTrouserFabric ? parseInt(storedTrouserFabric.price) : 0);
+
         setPrice(totalPrice);
     }, [])
 

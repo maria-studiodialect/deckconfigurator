@@ -12,6 +12,7 @@ export default function Checkout() {
     const [checkoutUrl, setCheckoutUrl] = useState(null);
     const [jacket, setJacket] = useState(null);
     const [trouser, setTrouser] = useState(null);
+    const [waistcoat, setWaistcoat] = useState(null);
     const [jacketFabric, setJacketFabric] = useState(null);
     const [trouserFabric, setTrouserFabric] = useState(null);
 
@@ -19,6 +20,7 @@ export default function Checkout() {
       // const storedSizes = JSON.parse(sessionStorage.getItem("sizes"));
       const storedJacket = JSON.parse(sessionStorage.getItem('jacket'));
       const storedTrouser = JSON.parse(sessionStorage.getItem('trousers'));
+      const storedWaistcoat = JSON.parse(sessionStorage.getItem('waistcoat'));
       const storedJacketFabric = JSON.parse(sessionStorage.getItem('selectedJacketFabric'));
       const storedTrouserFabric = JSON.parse(sessionStorage.getItem('selectedTrouserFabric'));
 
@@ -26,7 +28,11 @@ export default function Checkout() {
       if (storedJacket !== null) {
           setJacket(storedJacket);
       }
-      if (storedTrouser !== null) {
+      if (storedWaistcoat !== null) {
+          setWaistcoat(storedWaistcoat);
+      }
+      if 
+      (storedTrouser !== null) {
           setTrouser(storedTrouser);
       }
       if (storedJacketFabric !== null) {
@@ -41,6 +47,7 @@ export default function Checkout() {
     async function handleCreateCheckout() {
       const lineItems = [  ...(jacket ? [{ quantity: 1, variantId: jacket.id }] : []),
         ...(trouser ? [{ quantity: 1, variantId: trouser.id }] : []),
+        ...(waistcoat ? [{ quantity: 1, variantId: waistcoat.id }] : []),
         ...(jacketFabric ? [{ quantity: 1, variantId: jacketFabric.id }] : []),
         ...(trouserFabric ? [{ quantity: 1, variantId: trouserFabric.id }] : []),
       ];
