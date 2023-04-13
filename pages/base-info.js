@@ -109,11 +109,13 @@ const handleSubmit = (e) => {
       </Head>
       <Header fill={ width < 1024 ? '#2F2727' : 'white'}/>
       <div className='grid grid-cols-2 bg-beige min-h-screen'>
+        <motion.div initial={{x: -100}} whileInView={{x:0}} transition={{stiffness: 50, duration: 0.7}}>
         <div className='relative w-[50vw] h-screen z-0 hidden lg:block'>
         <Image src='/bg-img.webp' fill className='object-cover' />
         </div>
+        </motion.div>
       <div className='bg-beige flex justify-center items-center px-7 pt-36 lg:pt-0 md:px-24'>
-        <div>
+        <motion.div initial={{y:100, opacity:0}} whileInView={{y:0, opacity:1}} transition={{stiffness: 50, duration: 0.7}} >
           <div className='mb-3'>ENTER YOUR BASE INFORMATION</div>
           <div className='text-sm'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ullamcorper bibendum dui, nec condimentum quam dignissim in.</div>
           <form action="/send-data-here" method="post">
@@ -178,7 +180,7 @@ const handleSubmit = (e) => {
             <CustomSelect opt={skin} ph='SKIN TONE (OPTIONAL)' change={handleColorChange}/>
             {/*<button type="submit">Submit</button>*/}
           </form>
-        </div>
+        </motion.div>
       </div>
       </div>
       <div className='flex justify-between items-center mr-14 fixed bottom-0 pb-7 w-full px-7 bg-charcoal md:bg-transparent '>
