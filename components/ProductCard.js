@@ -19,7 +19,7 @@ const ProductCard = ({ index, img, title, isChecked, handleCardClick, cardOpacit
             </div>
             <div className="uppercase text-xs mt-4">{title}</div>
             {price &&
-            <div className="uppercase text-xs mt-4">Base Price £{price}</div>
+            <div className="uppercase text-xs mt-2">Base Price £{price}</div>
             }
         </div>
     )

@@ -44,6 +44,7 @@ export default function Suit() {
                 <div className='uppercase mb-5 text-sm'>Select your suit</div>
                 <div className='flex space-x-2'>
                 {products.map((product, index) => (
+                    <div key={index}>
                     <ProductCard
                     key={product.id}
                     img={product.img}
@@ -52,6 +53,7 @@ export default function Suit() {
                     handleCardClick={() => handleCardClick(index)}
                     cardOpacity={opacity[index]}
                     />
+                    </div>
                 ))}
                 </div>
             </div>

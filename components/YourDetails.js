@@ -6,7 +6,7 @@ const YourDetails = ({text, mainColour, href, icon}) => {
     useEffect(() => {
         const storedData = JSON.parse(sessionStorage.getItem('formData') || '{}');
         setFormData(storedData)
-    })
+    }, []) // <-- removed formData from dependency array
     return (
         <div className="bg-beige rounded-xl p-9 w-1/4 shadow-xl">
             <div>YOUR DETAILS</div>

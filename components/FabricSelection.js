@@ -51,7 +51,7 @@ const FabricSelection = ({productData, productType}) => {
             </div>
             <button className="border-t border-charcoal p-3 px-9 text-center text-sm w-full flex items-center justify-between hover:opacity-50"><span>INNER LINNING</span><Image src='/arrow-drawer.svg' width={25} height={25}/></button>
             <button className="border-t border-charcoal p-3 px-9 text-center text-sm w-full flex items-center justify-between hover:opacity-50"><span>TRIMS</span><Image src='/arrow-drawer.svg' width={25} height={25}/></button>
-            <button className="p-3 text-center text-sm w-full rounded-b-xl bg-charcoal flex items-center text-beige hover:opacity-50"><span className="w-full">DONE</span></button>
+            <Link href='/checkout'><button className="p-3 text-center text-sm w-full rounded-b-xl bg-charcoal flex items-center text-beige hover:opacity-50"><span className="w-full">DONE</span></button></Link>
         </div>
     )
 }

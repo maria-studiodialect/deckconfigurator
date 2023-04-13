@@ -96,10 +96,10 @@ const YourMeasurements = ({text, mainColour, href, icon}) => {
       
         const storedMeasurements = getStoredMeasurements();
       
-        if (storedMeasurements) {
+        if (JSON.stringify(storedMeasurements) !== JSON.stringify(measurements)) {
           setMeasurements(storedMeasurements);
         }
-      }, [formData]);
+      }, []);
       
 
       const handleInputChange = (event, key) => {
