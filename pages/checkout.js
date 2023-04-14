@@ -15,6 +15,7 @@ export default function Checkout() {
     const [waistcoat, setWaistcoat] = useState(null);
     const [jacketFabric, setJacketFabric] = useState(null);
     const [trouserFabric, setTrouserFabric] = useState(null);
+    const [waistcoatFabric, setWaistcoatFabric] = useState(null);
 
     useEffect(() => {
       // const storedSizes = JSON.parse(sessionStorage.getItem("sizes"));
@@ -23,6 +24,8 @@ export default function Checkout() {
       const storedWaistcoat = JSON.parse(sessionStorage.getItem('waistcoat'));
       const storedJacketFabric = JSON.parse(sessionStorage.getItem('selectedJacketFabric'));
       const storedTrouserFabric = JSON.parse(sessionStorage.getItem('selectedTrouserFabric'));
+      const storedWaistcoatFabric = JSON.parse(sessionStorage.getItem('selectedWaistcoatFabric'));
+
 
 
       if (storedJacket !== null) {
@@ -41,6 +44,9 @@ export default function Checkout() {
       if (storedTrouserFabric !== null) {
           setTrouserFabric(storedTrouserFabric);
       }
+      if (storedWaistcoatFabric !== null) {
+        setWaistcoatFabric(storedWaistcoatFabric);
+      }
     }, []);
 
 
@@ -50,6 +56,7 @@ export default function Checkout() {
         ...(waistcoat ? [{ quantity: 1, variantId: waistcoat.id }] : []),
         ...(jacketFabric ? [{ quantity: 1, variantId: jacketFabric.id }] : []),
         ...(trouserFabric ? [{ quantity: 1, variantId: trouserFabric.id }] : []),
+        ...(waistcoatFabric ? [{ quantity: 1, variantId: waistcoatFabric.id }] : []),
       ];
 
         console.log(lineItems)

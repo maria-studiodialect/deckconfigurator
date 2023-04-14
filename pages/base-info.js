@@ -85,6 +85,11 @@ const handleSubmit = (e) => {
     alert('Please fill in the required fields: height and weight');
     return;
   }
+  if (height > '211') {
+    alert('Please get in touch');
+    return;
+  }
+
   const submittedData = {
     name, 
     age,

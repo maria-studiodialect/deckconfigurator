@@ -36,7 +36,8 @@ export default function FabricSelect() {
                 img: edge.node.image?.url,
                 title: edge.node.product?.title,
                 price: edge.node.price,
-                id: edge.node.id
+                id: edge.node.id, 
+                description: edge.node.product?.description,
               }));
               setJacketFabrics(jackets);
 
@@ -47,6 +48,8 @@ export default function FabricSelect() {
               );
               const trouserData = await trouserList.json();
 
+              console.log(trouserData)
+
               if ([0, 1, 3].includes(chosenSet)) {
                 const trousers = trouserData.productVariants.edges
                   .filter((edge) =>  edge.node.title.includes(trouser.title.toUpperCase()))
@@ -54,7 +57,8 @@ export default function FabricSelect() {
                     img: edge.node.image?.url,
                     title: edge.node.product?.title,
                     price: edge.node.price,
-                    id: edge.node.id
+                    id: edge.node.id, 
+                    description: edge.node.product?.description,
                   }));
                   setTrouserFabrics(trousers);
               }
@@ -65,7 +69,8 @@ export default function FabricSelect() {
                   img: edge.node.image?.url,
                   title: edge.node.product?.title,
                   price: edge.node.price,
-                  id: edge.node.id
+                  id: edge.node.id, 
+                  description: edge.node.product?.description,
                 }));
         
             
@@ -90,9 +95,10 @@ export default function FabricSelect() {
         <div className="h-screen w-screen bg-gray-200 flex justify-end items-center p-7">
             <div className='w-2/5'>
             {[0, 1].includes(chosenSet) &&
-              <div className="bg-beige rounded-t-xl shadow-xl border-b border-charcoal grid grid-cols-2 text-center">
+              <div className={`bg-beige rounded-t-xl shadow-xl border-b border-charcoal grid ${chosenSet === 0 ? 'grid-cols-3' : 'grid-cols-2'} text-center`}>
                 {[0, 1, 2].includes(chosenSet) && <div className={`px-9 py-2 rounded-tl-xl cursor-pointer ${selected === 0 ? 'bg-charcoal text-beige': 'hover:opacity-50'}`} onClick={() => setSelected(0)}>Jacket</div>}
-                {[0, 1, 3].includes(chosenSet) && (<div className={`py-2 rounded-tr-xl cursor-pointer ${selected === 1 ? 'bg-charcoal text-beige': 'hover:opacity-50'}`} onClick={() => setSelected(1)}>Trousers</div>)}
+                {[0, 1, 3].includes(chosenSet) && (<div className={`py-2 ${chosenSet === 1 ? 'rounded-tr-xl': ''} cursor-pointer ${selected === 1 ? 'bg-charcoal text-beige': 'hover:opacity-50'}`} onClick={() => setSelected(1)}>Trousers</div>)}
+                {chosenSet === 0 && (<div className={`py-2 rounded-tr-xl cursor-pointer ${selected === 2 ? 'bg-charcoal text-beige': 'hover:opacity-50'}`} onClick={() => setSelected(2)}>Waistcoast</div>)}
               </div>
             }
             {[0, 1, 2].includes(chosenSet) && selected === 0 &&
@@ -100,6 +106,9 @@ export default function FabricSelect() {
             }
             {[0, 1, 3].includes(chosenSet) && selected === 1 &&
             <FabricSelection productData={trouserFabrics} productType='TrouserFabric'/>
+            }
+            {chosenSet === 0 && selected === 2 &&
+            <FabricSelection productData={waistcoatFabrics} productType='WaistcoatFabric'/>
             }
             </div>
         </div>

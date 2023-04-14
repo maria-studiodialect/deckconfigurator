@@ -26,6 +26,7 @@ const FinalProduct = () => {
     const [price, setPrice] = useState()
     const [jacketFabric, setJacketFabric] = useState(null);
     const [trouserFabric, setTrouserFabric] = useState(null);
+    const [waistcoatFabric, setWaistcoatFabric] = useState(null);
     const [isHidden, setIsHidden] = useState(false)
 
 
@@ -36,6 +37,7 @@ const FinalProduct = () => {
         const waistcoat = JSON.parse(sessionStorage.getItem('waistcoat'));
         const storedJacketFabric = JSON.parse(sessionStorage.getItem('selectedJacketFabric'));
         const storedTrouserFabric = JSON.parse(sessionStorage.getItem('selectedTrouserFabric'));
+        const storedWaistcoatFabric = JSON.parse(sessionStorage.getItem('selectedWaistcoatFabric'));
 
 
 
@@ -58,11 +60,16 @@ const FinalProduct = () => {
             setTrouserFabric(storedTrouserFabric);
         }
 
+        if (storedWaistcoatFabric !== null) {
+            setWaistcoatFabric(storedWaistcoatFabric);
+        }
+
 
         const totalPrice = (jacket ? parseInt(jacket.price) : 0) +
                            (trouser ? parseInt(trouser.price) : 0) +
                            (waistcoat ? parseInt(waistcoat.price) : 0) +
                            (storedJacketFabric ? parseInt(storedJacketFabric.price) : 0) +
+                           (storedWaistcoatFabric ? parseInt(storedWaistcoatFabric.price) : 0) +
                            (storedTrouserFabric ? parseInt(storedTrouserFabric.price) : 0);
 
         setPrice(totalPrice);
@@ -81,18 +88,24 @@ const FinalProduct = () => {
                 <>
                     <div className="mb-3 uppercase">{chosenJacket.title}</div>
                     <div>{chosenJacket.description}</div>
+                    <div className="ml-3 my-3 uppercase">+ {jacketFabric.title}</div>
+                    <div className="ml-5">{jacketFabric.description}</div>
                 </>    
                 }
                 {[0,1,3].includes(chosenSet) &&
                 <>
                     <div className="my-3 uppercase border-t pt-3">{chosenTrousers.title}</div>
                     <div>{chosenTrousers.description}</div>
+                    <div className="ml-3 my-3 uppercase">+ {trouserFabric.title}</div>
+                    <div className="ml-5">{trouserFabric.description}</div>
                 </>
                 }
                 {chosenWaistcoat !== null &&
                 <>
                     <div className="my-3 uppercase border-t pt-3">{chosenWaistcoat.title}</div>
                     <div>{chosenWaistcoat.description}</div>
+                    <div className="ml-3 my-3 uppercase">+ {waistcoatFabric.title}</div>
+                    <div className="ml-5">{waistcoatFabric.description}</div>
                 </>
                 }
             </div>

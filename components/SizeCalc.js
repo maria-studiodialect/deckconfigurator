@@ -15,7 +15,12 @@ export default function SizeCalc(bustSize, waistSize) {
   
     const jacketSize = sizeReference.find((size) => bustSize <= size.bust)?.ukSize;
     const trouserSize = sizeReference.find((size) => waistSize <= size.waist)?.ukSize;
-  
-    return { jacketSize, trouserSize };
+
+    const result = {
+        jacketSize: jacketSize !== undefined ? jacketSize : 22,
+        trouserSize: trouserSize !== undefined ? trouserSize : 22
+    };
+
+    return result;
   }
   

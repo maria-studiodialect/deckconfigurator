@@ -23,7 +23,7 @@ export default function Silhouette() {
     const [waistcoat, setwaistcoat] = useState([]);
     const [productNumber, setProductNumber] = useState(0);
 
-    console.log(productNumber)
+    //console.log(productNumber)
 
     useEffect(() => {
       const chosenSet = sessionStorage.getItem("chosenSet"); 
@@ -39,6 +39,8 @@ export default function Silhouette() {
   
         const { jacketSize, trouserSize } = SizeCalc(bustSize, waistSize);
         var sizes = {'jacketSize': jacketSize, 'trouserSize' : trouserSize}
+
+        console.log(sizes)
         sessionStorage.setItem("sizes", JSON.stringify(sizes));
 
         const fetchData = async () => {
@@ -111,13 +113,18 @@ export default function Silhouette() {
     };
 
     const handleClick = () => {
-      [1, 2, 3].includes(productNumber) ? setIsOpen(true) : router.push('/product-view')
+      // [1, 2, 3].includes(productNumber) ? setIsOpen(true) : router.push('/product-view')
+      if (([0, 1, 2].includes(productNumber) && selectedJacket === null) || ([0, 1, 3].includes(productNumber) && selectedTrousers === null) || (productNumber === 0 && selectedWaistcoat === null)) {
+        alert('Please make all selections');
+        return;
+      }
       sessionStorage.setItem("trousers", selectedTrousers !== null ? JSON.stringify(trousers[selectedTrousers]) : null);
       sessionStorage.setItem("jacket", selectedJacket !== null ? JSON.stringify(jackets[selectedJacket]) : null);
       sessionStorage.setItem("waistcoat", selectedWaistcoat !== null ? JSON.stringify(waistcoat[selectedWaistcoat]) : null);
+      router.push('/product-view')
     };
   
-    console.log(selectedTrousers, selectedJacket, selectedWaistcoat)
+    // console.log(selectedTrousers, selectedJacket, selectedWaistcoat)
     return (
         <>
         <Head>
