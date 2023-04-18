@@ -6,10 +6,13 @@ import Header from '@/components/Header'
 import YourDetails from '@/components/YourDetails'
 import RefineProportions from '@/components/RefineProportions'
 import Link from 'next/link'
+import { useRef } from 'react'
 
 const inter = Inter({ subsets: ['latin'] })
 
-export default function Home() {
+export default function Details() {
+    
+
     return (
         <>
         <Head>
@@ -19,7 +22,7 @@ export default function Home() {
             <link rel="icon" href="/favicon.ico" />
         </Head>
         <Header fill='#2F2727'/>
-        <div className="h-screen w-screen bg-gray-200 flex justify-between items-center p-7">
+        <div className="h-screen w-screen bg-gray-200 flex justify-between items-center md:p-7">
             <YourDetails/>
             <RefineProportions/>
         </div>

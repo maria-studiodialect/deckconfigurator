@@ -9,6 +9,8 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router';
 import { motion } from 'framer-motion'
 
+
+
 const inter = Inter({ subsets: ['latin'] })
 
 const COLORS = [
@@ -113,13 +115,11 @@ const handleSubmit = (e) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header fill={ width < 1024 ? '#2F2727' : 'white'}/>
-      <div className='grid grid-cols-2 bg-beige min-h-screen'>
-        <motion.div initial={{x: -100}} whileInView={{x:0}} transition={{stiffness: 50, duration: 0.7}}>
-        <div className='relative w-[50vw] h-screen z-0 hidden lg:block'>
+      <div className='grid md:grid-cols-2 bg-beige md:min-h-screen'>
+        <motion.div initial={{x: -100}} whileInView={{x:0}} transition={{stiffness: 50, duration: 0.7}} className='relative w-[50vw] h-screen z-0 hidden lg:block'>
         <Image src='/bg-img.webp' fill className='object-cover' />
-        </div>
         </motion.div>
-      <div className='bg-beige flex justify-center items-center px-7 pt-36 lg:pt-0 md:px-24'>
+      <div className='bg-beige flex justify-center items-center mt-28 mb-52 px-7 lg:pt-0 md:px-24'>
         <motion.div initial={{y:100, opacity:0}} whileInView={{y:0, opacity:1}} transition={{stiffness: 50, duration: 0.7}} >
           <div className='mb-3'>ENTER YOUR BASE INFORMATION</div>
           <div className='text-sm'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ullamcorper bibendum dui, nec condimentum quam dignissim in.</div>
@@ -188,7 +188,7 @@ const handleSubmit = (e) => {
         </motion.div>
       </div>
       </div>
-      <div className='flex justify-between items-center mr-14 fixed bottom-0 pb-7 w-full px-7 bg-charcoal md:bg-transparent '>
+      <div className='fixed bottom-0 md:static bg-charcoal flex justify-between items-center mr-14 md:fixed bottom-0 pb-5 w-full pt-2 md:pb-7 px-7 md:bg-transparent'>
         <Link href='/'>
         <svg width="50" height="37" viewBox="0 0 50 37" fill="none" xmlns="http://www.w3.org/2000/svg" className="ml-4 w-7 rotate-180">
             <path d="M31.25 0.5C31.25 0.5 34.3071 18.5 50 18.5" stroke="white" stroke-width="2" stroke-miterlimit="10"/>
@@ -197,11 +197,11 @@ const handleSubmit = (e) => {
         </svg>
         </Link>
         <div onClick={handleSubmit} className={`cursor-pointer text-beige md:text-charcoal px-3 py-2 xxl:px-8 xxl:py-6 flex items-center font-editorial text-2xl`}>
-                Start designing
-                <svg width="50" height="37" viewBox="0 0 50 37" fill="none" xmlns="http://www.w3.org/2000/svg" className="ml-3 w-7">
-                    <path d="M31.25 0.5C31.25 0.5 34.3071 18.5 50 18.5" stroke='#2F2727' stroke-width="2" stroke-miterlimit="10"/>
-                    <path d="M31.25 36.5C31.25 36.5 34.3071 18.5 50 18.5" stroke='#2F2727' stroke-width="2" stroke-miterlimit="10"/>
-                    <path d="M50 18.5L0 18.5" stroke='#2F2727' stroke-width="2" stroke-miterlimit="10"/>
+                Next step
+                <svg width="50" height="37" viewBox="0 0 50 37" fill="none" xmlns="http://www.w3.org/2000/svg" className="ml-3 w-7 stroke-white	md:stroke-charcoal">
+                    <path d="M31.25 0.5C31.25 0.5 34.3071 18.5 50 18.5"  stroke-width="2" stroke-miterlimit="10"/>
+                    <path d="M31.25 36.5C31.25 36.5 34.3071 18.5 50 18.5"  stroke-width="2" stroke-miterlimit="10"/>
+                    <path d="M50 18.5L0 18.5"  stroke-width="2" stroke-miterlimit="10"/>
                 </svg>
             </div>
       </div>

@@ -5,7 +5,7 @@ import RangeSlider from "./RangeSlider";
 const RefineProportions = () => {
 
     return (
-        <div className="bg-beige rounded-xl p-9 w-1/4 shadow-xl">
+        <div className="hidden md:block bg-beige rounded-xl p-9 w-1/4 shadow-xl">
             <div className="uppercase">Refine Proportions</div>
             <div className="grid grid-cols-2 gap-3 mt-7 border-t pt-7 text-sm">
                 <div>ABDOMEN</div>

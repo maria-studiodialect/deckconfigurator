@@ -31,6 +31,9 @@
     font-weight: lighter;
 }
 
+.vertical {
+    writing-mode: vertical-rl;
+}
 
 body {
     font-family: 'Sharp Sans';
