@@ -2,15 +2,15 @@ import Link from "next/link"
 import { useEffect, useState } from 'react'
 
 const YourDetails = ({text, mainColour, href, icon}) => {
-    const [isHidden, setIsHidden] = useState(false)
+    const [isHidden, setIsHidden] = useState(true)
     const [formData, setFormData] = useState(null)
     useEffect(() => {
         const storedData = JSON.parse(sessionStorage.getItem('formData') || '{}');
         setFormData(storedData)
     }, []) // <-- removed formData from dependency array
     return (
-        <div className={`flex items-center md:block `}>
-        <div className={`bg-beige rounded-xl p-9 md:w-1/4 shadow-xl ${isHidden ? 'hidden': 'block'}`}>
+        <div className={`flex items-center md:block md:w-1/4`}>
+        <div className={`bg-beige rounded-xl p-9  shadow-xl ${isHidden ? 'hidden md:block': 'block'}`}>
             <div>YOUR DETAILS</div>
             <div className="mt-3 text-sm">Lorem ipsum dolor sit amet dictum consectetur adipiscing elit. Etiameu turpis molestie.</div>
             {formData &&

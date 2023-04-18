@@ -135,7 +135,7 @@ const handleSubmit = (e) => {
             </div>
               <div>
                 <label htmlFor="height">HEIGHT</label><br />
-                <div className="flex">
+                <div className="grid grid-cols-[70%_30%]">
                   <input
                     type="text"
                     id="height"
@@ -158,7 +158,7 @@ const handleSubmit = (e) => {
               </div>
               <div>
                 <label htmlFor="weight">WEIGHT</label><br />
-                <div className="flex">
+                <div className="grid grid-cols-[70%_30%]">
                   <input
                     type="text"
                     id="weight"
@@ -188,7 +188,7 @@ const handleSubmit = (e) => {
         </motion.div>
       </div>
       </div>
-      <div className='fixed bottom-0 md:static bg-charcoal flex justify-between items-center mr-14 md:fixed bottom-0 pb-5 w-full pt-2 md:pb-7 px-7 md:bg-transparent'>
+      <div className='fixed bottom-0 md:static bg-charcoal flex justify-between items-center mr-14 md:fixed bottom-0 pb-3 w-full pt-2 md:pb-7 px-3 md:px-7 md:bg-transparent'>
         <Link href='/'>
         <svg width="50" height="37" viewBox="0 0 50 37" fill="none" xmlns="http://www.w3.org/2000/svg" className="ml-4 w-7 rotate-180">
             <path d="M31.25 0.5C31.25 0.5 34.3071 18.5 50 18.5" stroke="white" stroke-width="2" stroke-miterlimit="10"/>
