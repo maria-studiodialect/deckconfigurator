@@ -48,7 +48,7 @@ export default function BaseInfo() {
   const [weightUnit, setWeightUnit] = useState('kg');
 
   const convertWeightUnits = (value, prevUnit, newUnit) => {
-    if (prevUnit === newUnit) return value;
+    if (prevUnit === newUnit || isNaN(parseFloat(value))) return value;
   
     const conversionFactors = {
       'kg': { 'lb': 2.20462, 'st': 0.157473 },
@@ -56,16 +56,17 @@ export default function BaseInfo() {
       'st': { 'kg': 6.35029, 'lb': 14 },
     };
   
-    return (parseFloat(value) * conversionFactors[prevUnit][newUnit]).toFixed(2);
+    const convertedValue = parseFloat(value) * conversionFactors[prevUnit][newUnit];
+    return isNaN(convertedValue) ? value : convertedValue.toFixed(2);
   };
   
   const convertHeightUnits = (value, prevUnit, newUnit) => {
-    if (prevUnit === newUnit) return value;
-    const conversionFactor = prevUnit === 'cm' ? 0.393701 : 2.54;
-    return (parseFloat(value) * conversionFactor).toFixed(2);
-  };
+    if (prevUnit === newUnit || isNaN(parseFloat(value))) return value;
   
-
+    const conversionFactor = prevUnit === 'cm' ? 0.393701 : 2.54;
+    const convertedValue = parseFloat(value) * conversionFactor;
+    return isNaN(convertedValue) ? value : convertedValue.toFixed(2);
+  };
   const handleHeightUnitChange = (e) => {
     const newUnit = e.target.value;
     setHeight(convertHeightUnits(height, heightUnit, newUnit));
@@ -81,6 +82,8 @@ export default function BaseInfo() {
   const handleColorChange = (selectedOption) => {
     setSkinTone(selectedOption.color);
   };
+
+
 const handleSubmit = (e) => {
   e.preventDefault();
   if (!height || !weight) {
