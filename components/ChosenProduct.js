@@ -52,11 +52,11 @@ const ChosenProduct = () => {
     }, [])
 
     return (
-        <div className="bg-beige rounded-xl w-1/4 shadow-xl">
-            <div className="px-9 pt-9">
+        <div className="bg-beige rounded-xl md:w-1/4 md:shadow-xl mx-5 md:mx-0">
+            <div className="pt-5 md:px-9 md:pt-9">
             <div>{getTextByNumber(chosenSet)}</div>
             <div className="text-end text-sm font-bold">£{price}</div>
-            <div className="mt-7 border-t  border-charcoal/25 py-7 text-xs h-[20vh] overflow-y-scroll pr-4">
+            <div className="mt-3 md:mt-7 border-t  border-charcoal/25 py-7 text-xs h-[30vh] md:h-[20vh] overflow-y-scroll pr-4">
                 {[0,1,2].includes(chosenSet) &&
                 <>
                     <div className="mb-3 uppercase">{chosenJacket.title}</div>
@@ -77,9 +77,9 @@ const ChosenProduct = () => {
                 }
             </div>
             </div>
-            <button className="border-t border-charcoal p-3 text-center text-sm w-full flex items-center hover:opacity-50"><Image src='/change.svg' width={25} height={25}/><span className="w-full">CHANGE POSE</span></button>
-            <button className="border-t border-charcoal p-3 text-center text-sm w-full flex items-center hover:opacity-50"><Image src='/camera.svg' width={25} height={25}/><span className="w-full">SAVE SNAPSHOT</span></button>
-            <Link href='/fabric-selection'><button className="p-3 text-center text-sm w-full rounded-b-xl bg-charcoal flex items-center text-beige hover:opacity-50"><Image src='/fabric.svg' width={25} height={25}/><span className="w-full">CHOOSE FABRIC</span></button></Link>
+            <button className="mb-2 md:mb-0 border md:border-0 md:border-t border-charcoal p-2 md:p-3 text-center text-sm w-full flex items-center hover:opacity-50"><Image src='/change.svg' width={25} height={25}/><span className="w-full">CHANGE POSE</span></button>
+            <button className="mb-2 md:mb-0 border md:border-0 md:border-t border-charcoal p-2 md:p-3 text-center text-sm w-full flex items-center hover:opacity-50"><Image src='/camera.svg' width={25} height={25}/><span className="w-full">SAVE SNAPSHOT</span></button>
+            <Link href='/fabric-selection'><button className="p-2 md:p-3 text-center text-sm w-full md:rounded-b-xl bg-charcoal flex items-center text-beige hover:opacity-50"><Image src='/fabric.svg' width={25} height={25}/><span className="w-full">CHOOSE FABRIC</span></button></Link>
         </div>
     )
 }

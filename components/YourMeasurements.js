@@ -132,12 +132,12 @@ const YourMeasurements = () => {
       };
 
     return (
-        <div className="bg-beige rounded-xl p-9 w-1/4 shadow-xl">
+        <div className="bg-beige rounded-xl px-9 pb-9 pt-5 text-sm md:text-base md:p-9 md:w-1/4 md:shadow-xl">
             <div className="uppercase">YOUR MeasurementS</div>
 
             {measurements &&
             <>
-            <div className="grid grid-cols-[0.7fr_0.3fr] gap-3 mt-5 border-y py-5 text-sm">
+            <div className="grid grid-cols-[0.7fr_0.3fr] gap-3 mt-3 md:mt-5 border-y py-3 md:py-5 text-xs md:text-sm">
               <div>SHOULDER WIDTH</div>
                 {isEditing ? (
                   <div className="flex justify-self-end">
@@ -146,7 +146,7 @@ const YourMeasurements = () => {
                     step="0.1"
                     value={measurements.shoulderWidth || ''}
                     onChange={(event) => handleInputChange(event, "shoulderWidth")}
-                    className="bg-transparent max-w-[3.5em] border-b"
+                    className="bg-transparent max-w-[3.5em] border-b border-charcoal"
                   />
                   <label className="cm-label">CM</label>
                   </div>
@@ -162,7 +162,7 @@ const YourMeasurements = () => {
                     step="0.1"
                     value={measurements.armLength || ''}
                     onChange={(event) => handleInputChange(event, "armLength")}
-                    className="bg-transparent max-w-[3.5em] border-b"
+                    className="bg-transparent max-w-[3.5em] border-b border-charcoal"
                   />
                   <label className="cm-label">CM</label>
                 </div>
@@ -177,7 +177,7 @@ const YourMeasurements = () => {
                     step="0.1"
                     value={measurements.bustCircumference || ''}
                     onChange={(event) => handleInputChange(event, "bustCircumference")}
-                    className="bg-transparent max-w-[3.5em] border-b"
+                    className="bg-transparent max-w-[3.5em] border-b border-charcoal"
                   />
                   <label className="cm-label">CM</label>
                 </div>
@@ -192,7 +192,7 @@ const YourMeasurements = () => {
                     step="0.1"
                     value={measurements.waistWidth || ''}
                     onChange={(event) => handleInputChange(event, "waistWidth")}
-                    className="bg-transparent max-w-[3.5em] border-b"
+                    className="bg-transparent max-w-[3.5em] border-b border-charcoal"
                   />
                   <label className="cm-label">CM</label>
                 </div>
@@ -207,7 +207,7 @@ const YourMeasurements = () => {
                     step="0.1"
                     value={measurements.waistCircumference || ''}
                     onChange={(event) => handleInputChange(event, "waistCircumference")}
-                    className="bg-transparent max-w-[3.5em] border-b"
+                    className="bg-transparent max-w-[3.5em] border-b border-charcoal"
                   />
                   <label className="cm-label">CM</label>
                 </div>
@@ -215,7 +215,7 @@ const YourMeasurements = () => {
                   <div className="justify-self-end w-fit border-b border-transparent">{measurements.waistCircumference || ''} CM</div>
                 )}
             </div>
-            <div className="grid grid-cols-[0.7fr_0.3fr] gap-3 mb-5 border-b py-5 text-sm">
+            <div className="grid grid-cols-[0.7fr_0.3fr] gap-3 mb-3 md:mb-5 border-b py-3 md:py-5 text-xs md:text-sm">
               <div>HIPS WIDTH</div>
               {isEditing ? (
                 <div className="flex justify-self-end">
@@ -224,7 +224,7 @@ const YourMeasurements = () => {
                     step="0.1"
                     value={measurements.hipWidth || ''}
                     onChange={(event) => handleInputChange(event, "hipWidth")}
-                    className="bg-transparent max-w-[3.5em] border-b"
+                    className="bg-transparent max-w-[3.5em] border-b border-charcoal"
                   />
                   <label className="cm-label">CM</label>
                 </div>
@@ -239,7 +239,7 @@ const YourMeasurements = () => {
                     step="0.1"
                     value={measurements.hipCircumference || ''}
                     onChange={(event) => handleInputChange(event, "hipCircumference")}
-                    className="bg-transparent max-w-[3.5em] border-b"
+                    className="bg-transparent max-w-[3.5em] border-b border-charcoal"
                   />
                   <label className="cm-label">CM</label>
                 </div>
@@ -254,7 +254,7 @@ const YourMeasurements = () => {
                     step="0.1"
                     value={measurements.thighCircumference || ''}
                     onChange={(event) => handleInputChange(event, "thighCircumference")}
-                    className="bg-transparent max-w-[3.5em] border-b"
+                    className="bg-transparent max-w-[3.5em] border-b border-charcoal"
                   />
                   <label className="cm-label">CM</label>
                 </div>
@@ -269,7 +269,7 @@ const YourMeasurements = () => {
                     step="0.1"
                     value={measurements.legLength || ''}
                     onChange={(event) => handleInputChange(event, "legLength")}
-                    className="bg-transparent max-w-[3.5em] border-b"
+                    className="bg-transparent max-w-[3.5em] border-b border-charcoal"
                   />
                   <label className="cm-label">CM</label>
                 </div>

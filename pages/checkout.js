@@ -3,8 +3,9 @@ import Image from 'next/image'
 import ButtonClick from '@/components/ButtonClick'
 import Header from '@/components/Header'
 import Link from 'next/link'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import FinalProduct from '@/components/FinalProduct'
+import Sheet, { SheetRef } from 'react-modal-sheet';
 
 
 
@@ -16,6 +17,9 @@ export default function Checkout() {
     const [jacketFabric, setJacketFabric] = useState(null);
     const [trouserFabric, setTrouserFabric] = useState(null);
     const [waistcoatFabric, setWaistcoatFabric] = useState(null);
+    const [isOpen, setOpen] = useState(true);
+    const ref = useRef(null);
+    const snapTo = (i) => ref.current?.snapTo(i);
 
     useEffect(() => {
       // const storedSizes = JSON.parse(sessionStorage.getItem("sizes"));
@@ -89,18 +93,38 @@ export default function Checkout() {
             <link rel="icon" href="/favicon.ico" />
         </Head>
         <Header fill='#2F2727'/>
-        <div className="h-screen w-screen bg-gray-200 flex justify-between items-center p-7">
+        <div className="h-screen w-screen bg-gray-200 hidden md:flex justify-between items-center p-7">
           <FinalProduct/>
         </div>
-        <div className='flex justify-between items-center mr-14 absolute bottom-7 w-full px-7'>
+        <Sheet
+        ref={ref}
+        isOpen={isOpen}
+        onClose={() => snapTo(1)}
+        snapPoints={[600, 200, 0]}
+        initialSnap={1}
+        className='md:hidden'
+        onSnap={snapIndex =>
+          console.log('> Current snap point index:', snapIndex)
+        }
+      >
+            <Sheet.Container>
+            <Sheet.Header />
+            <Sheet.Content>
+                <FinalProduct/>
+            </Sheet.Content>
+            </Sheet.Container>
+
+            <Sheet.Backdrop />
+        </Sheet>
+        <div className='flex justify-between items-center mr-14 absolute bottom-0 pt-2 pb-2 md:pb-7 w-full px-3 md:px-7 z-[99999999] bg-charcoal text-beige md:text-charcoal md:bg-transparent'>
             <Link href='/fabric-selection'>
-            <svg width="50" height="37" viewBox="0 0 50 37" fill="none" xmlns="http://www.w3.org/2000/svg" className="ml-4 w-7 rotate-180">
-                <path d="M31.25 0.5C31.25 0.5 34.3071 18.5 50 18.5" stroke="#2F2727" stroke-width="2" stroke-miterlimit="10"/>
-                <path d="M31.25 36.5C31.25 36.5 34.3071 18.5 50 18.5" stroke="#2F2727" stroke-width="2" stroke-miterlimit="10"/>
-                <path d="M50 18.5L0 18.5" stroke="#2F2727" stroke-width="2" stroke-miterlimit="10"/>
+            <svg width="50" height="37" viewBox="0 0 50 37" fill="none" xmlns="http://www.w3.org/2000/svg" className="ml-4 w-7 rotate-180 stroke-beige md:stroke-charcoal">
+                <path d="M31.25 0.5C31.25 0.5 34.3071 18.5 50 18.5" stroke-width="2" stroke-miterlimit="10"/>
+                <path d="M31.25 36.5C31.25 36.5 34.3071 18.5 50 18.5" stroke-width="2" stroke-miterlimit="10"/>
+                <path d="M50 18.5L0 18.5" stroke-width="2" stroke-miterlimit="10"/>
             </svg>
             </Link>
-            <ButtonClick click={handleCreateCheckout} mainColour='text-charcoal' text='Checkout' icon='#2F2727' />
+            <ButtonClick click={handleCreateCheckout} mainColour='text-beige md:text-charcoal' text='Checkout' icon='#2F2727' />
         </div>
         </>
     )

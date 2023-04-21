@@ -78,12 +78,12 @@ const FinalProduct = () => {
 
 
     return (
-        <div className="flex items-center">
-        <div className={`bg-beige rounded-xl w-1/4 shadow-xl transition transition-all ${isHidden ? 'ml-[-27%]': ''}`}>
-            <div className="px-9 pt-9">
+        <div className="md:flex items-center mx-5 md:mx-0">
+        <div className={`bg-beige rounded-xl md:w-1/4 md:shadow-xl transition transition-all ${isHidden ? 'ml-[-27%]': ''}`}>
+            <div className="pt-5 md:px-9 md:pt-9">
             <div>{getTextByNumber(chosenSet)}</div>
             <div className="text-end text-sm font-bold">£{price}</div>
-            <div className="mt-7 border-t  border-charcoal/25 py-7 text-xs h-[35vh] overflow-y-scroll pr-4">
+            <div className="mt-3 md:mt-7 border-t mb-20 md:mb-0 border-charcoal/25 py-7 text-xs md:h-[35vh] md:overflow-y-scroll pr-4">
                 {[0,1,2].includes(chosenSet) &&
                 <>
                     <div className="mb-3 uppercase">{chosenJacket.title}</div>
@@ -111,7 +111,7 @@ const FinalProduct = () => {
             </div>
             </div>
          </div>
-         <div className="bg-charcoal h-fit px-1.5 py-8 rounded-r-lg" onClick={() =>  setIsHidden(!isHidden)}>
+         <div className="bg-charcoal h-fit px-1.5 py-8 rounded-r-lg hidden md:block" onClick={() =>  setIsHidden(!isHidden)}>
             <div className={isHidden ? "rotate-90" : "-rotate-90"}>
                 <svg width="24" height="12" viewBox="0 0 32 16" fill="none" xmlns="http://www.w3.org/2000/svg" >
                 <path d="M1 15C1 15 16 12.5543 16 2.10592e-06" stroke="#F7F4EE" stroke-miterlimit="10"/>

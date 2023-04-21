@@ -12,7 +12,7 @@ const ProductCard = ({ index, img, title, isChecked, handleCardClick, cardOpacit
     return (
         <div>
             <div className="relative" style={{ opacity: cardOpacity }}>
-            <div className="relative rounded-xl h-[45vh] w-[15vw] border">
+            <div className="relative rounded-xl h-[50vh] md:h-[45vh] md:w-[18vw] border">
                 <Image src={img} fill className="object-cover rounded-xl bg-white"/>
             </div>
             <div className="absolute bottom-2 left-3"><input type="checkbox" className={`appearance-none w-9 h-9 rounded-full bg-white border cursor-pointer ${isChecked ? 'checked' : ''}`} checked={isChecked} onChange={handleClick} /></div>

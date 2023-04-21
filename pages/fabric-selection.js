@@ -3,7 +3,8 @@ import Button from '@/components/Button'
 import Header from '@/components/Header'
 import Link from 'next/link'
 import FabricSelection from '@/components/FabricSelection'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
+import Sheet, { SheetRef } from 'react-modal-sheet';
 
 
 export default function FabricSelect() {
@@ -12,6 +13,9 @@ export default function FabricSelect() {
     const [waistcoatFabrics, setWaistcoatFabrics] = useState([])
     const [selected, setSelected] = useState(0)
     const [chosenSet, setChosenSet] = useState(0)
+    const [isOpen, setOpen] = useState(true);
+    const ref = useRef(null);
+    const snapTo = (i) => ref.current?.snapTo(i);
 
     useEffect(() => {
         const set =  JSON.parse(sessionStorage.getItem("chosenSet"));
@@ -92,7 +96,7 @@ export default function FabricSelect() {
             <link rel="icon" href="/favicon.ico" />
         </Head>
         <Header fill='#2F2727'/>
-        <div className="h-screen w-screen bg-gray-200 flex justify-end items-center p-7">
+        <div className="h-screen w-screen bg-gray-200 justify-end items-center p-7 hidden md:flex">
             <div className='w-2/5'>
             {[0, 1].includes(chosenSet) &&
               <div className={`bg-beige rounded-t-xl shadow-xl border-b border-charcoal grid ${chosenSet === 0 ? 'grid-cols-3' : 'grid-cols-2'} text-center`}>
@@ -112,15 +116,52 @@ export default function FabricSelect() {
             }
             </div>
         </div>
-        <div className='flex justify-between items-center mr-14 absolute bottom-7 w-full px-7'>
+        <Sheet
+        ref={ref}
+        isOpen={isOpen}
+        onClose={() => snapTo(1)}
+        snapPoints={[600, 200, 0]}
+        initialSnap={1}
+        className='md:hidden'
+        onSnap={snapIndex =>
+          console.log('> Current snap point index:', snapIndex)
+        }
+      >
+            <Sheet.Container>
+            <Sheet.Header />
+            <Sheet.Content>
+            <div className='mx-4'>
+            {[0, 1].includes(chosenSet) &&
+              <div className={`grid ${chosenSet === 0 ? 'grid-cols-3' : 'grid-cols-2'} text-center`}>
+                {[0, 1, 2].includes(chosenSet) && <div className={`relative py-2 cursor-pointer ${selected === 0 ? 'font-bold underline-small': 'hover:opacity-50'}`} onClick={() => setSelected(0)}>Jacket</div>}
+                {[0, 1, 3].includes(chosenSet) && (<div className={`relative py-2 cursor-pointer ${selected === 1 ? 'font-bold underline-small': 'hover:opacity-50'}`} onClick={() => setSelected(1)}>Trousers</div>)}
+                {chosenSet === 0 && (<div className={`relative py-2 cursor-pointer ${selected === 2 ? 'font-bold underline-small': 'hover:opacity-50'}`} onClick={() => setSelected(2)}>Waistcoast</div>)}
+              </div>
+            }
+            {[0, 1, 2].includes(chosenSet) && selected === 0 &&
+            <FabricSelection productData={jacketFabrics} productType='JacketFabric'/>
+            }
+            {[0, 1, 3].includes(chosenSet) && selected === 1 &&
+            <FabricSelection productData={trouserFabrics} productType='TrouserFabric'/>
+            }
+            {chosenSet === 0 && selected === 2 &&
+            <FabricSelection productData={waistcoatFabrics} productType='WaistcoatFabric'/>
+            }
+            </div>
+            </Sheet.Content>
+            </Sheet.Container>
+
+            <Sheet.Backdrop />
+        </Sheet>
+        <div className='flex justify-between items-center mr-14 absolute bottom-0 pt-2 pb-2 md:pb-7 w-full px-3 md:px-7 z-[99999999] bg-charcoal text-beige md:text-charcoal md:bg-transparent'>
             <Link href='/product-view'>
-            <svg width="50" height="37" viewBox="0 0 50 37" fill="none" xmlns="http://www.w3.org/2000/svg" className="ml-4 w-7 rotate-180">
-                <path d="M31.25 0.5C31.25 0.5 34.3071 18.5 50 18.5" stroke="#2F2727" stroke-width="2" stroke-miterlimit="10"/>
-                <path d="M31.25 36.5C31.25 36.5 34.3071 18.5 50 18.5" stroke="#2F2727" stroke-width="2" stroke-miterlimit="10"/>
-                <path d="M50 18.5L0 18.5" stroke="#2F2727" stroke-width="2" stroke-miterlimit="10"/>
+            <svg width="50" height="37" viewBox="0 0 50 37" fill="none" xmlns="http://www.w3.org/2000/svg" className="ml-4 w-7 rotate-180 stroke-beige md:stroke-charcoal">
+                <path d="M31.25 0.5C31.25 0.5 34.3071 18.5 50 18.5" stroke-width="2" stroke-miterlimit="10"/>
+                <path d="M31.25 36.5C31.25 36.5 34.3071 18.5 50 18.5" stroke-width="2" stroke-miterlimit="10"/>
+                <path d="M50 18.5L0 18.5" stroke-width="2" stroke-miterlimit="10"/>
             </svg>
             </Link>
-            <Button href='/checkout' mainColour='text-charcoal' text='Next step' icon='#2F2727' />
+            <Button href='/checkout' mainColour='text-beige md:text-charcoal' text='Next step' icon='#2F2727' />
         </div>
         </>
     )

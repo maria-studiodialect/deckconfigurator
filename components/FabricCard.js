@@ -11,9 +11,9 @@ const FabricCard = ({ img, title, price, isChecked, onCheck}) => {
                 <Image src={img} fill className="object-cover bg-white" alt={`${title} image`}/>
             </div>
             </div>
-            <div className="uppercase text-xs mt-4">{title}</div>
+            <div className="uppercase text-xs  mt-2 md:mt-4">{title}</div>
             {price &&
-            <div className="uppercase text-xs mt-4">£{price}</div>
+            <div className="uppercase text-xs mt-2 md:mt-4">£{price}</div>
             }
         </div>
     )

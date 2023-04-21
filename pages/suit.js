@@ -6,6 +6,7 @@ import ProductCard from '@/components/ProductCard'
 import { useState } from 'react'
 import ButtonNoLink from '@/components/ButtonNoLink'
 import { useRouter } from 'next/router'
+import { EmblaCarousel } from '@/components/Embla'
 
 
 export default function Suit() {
@@ -39,10 +40,27 @@ export default function Suit() {
             <link rel="icon" href="/favicon.ico" />
         </Head>
         <Header fill='#2F2727'/>
+        <div className='h-screen flex flex-col justify-center md:hidden'>
+        <div className='uppercase mb-5 text-sm pl-7'>Select your suit</div>
+        <EmblaCarousel>
+            {products.map((product, index) => (
+                <div className='embla__slide' key={index}>
+                <ProductCard
+                key={product.id}
+                img={product.img}
+                title={product.title}
+                isChecked={index === selected}
+                handleCardClick={() => handleCardClick(index)}
+                cardOpacity={opacity[index]}
+                />
+                </div>
+            ))}
+        </EmblaCarousel>
+        </div>
         <div className="h-screen w-screen bg-beige flex justify-center items-center p-7">
             <div>
                 <div className='uppercase mb-5 text-sm'>Select your suit</div>
-                <div className='flex space-x-2'>
+                <div className='hidden md:flex space-x-2'>
                 {products.map((product, index) => (
                     <div key={index}>
                     <ProductCard
@@ -58,7 +76,10 @@ export default function Suit() {
                 </div>
             </div>
         </div>
-        <div className='flex justify-between items-center mr-14 absolute bottom-7 w-full px-7'>
+        <div>
+                
+        </div>
+        <div className='flex justify-between items-center mr-14 absolute bottom-0 pb-2 md:pb-7 w-full px-3 md:px-7'>
             <Link href='/measurements'>
             <svg width="50" height="37" viewBox="0 0 50 37" fill="none" xmlns="http://www.w3.org/2000/svg" className="ml-4 w-7 rotate-180">
                 <path d="M31.25 0.5C31.25 0.5 34.3071 18.5 50 18.5" stroke="#2F2727" stroke-width="2" stroke-miterlimit="10"/>
